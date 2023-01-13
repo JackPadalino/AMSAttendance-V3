@@ -1,8 +1,9 @@
-# AMSAttendance-V2
+# AMSAttendance-V3
 Express JS app to automate teacher attendance and staff covereages.
 
 ## Basic features
 - *Includes MS/HS schedules and letter days*
+- *Does not include text message functionality*
 - App can receive/send messages
 - DB of teacher schedules and classes
 - Assign coverages from the app
