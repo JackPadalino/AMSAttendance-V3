@@ -1,0 +1,12 @@
+export { default as Absences } from './Absences/Absences';
+export { default as AvailableCoverages } from './AvailableCoverages/AvailableCoverages';
+export { default as AllClassesPage } from './Classes/AllClasses/AllClassesPage';
+export { default as SingleClassPage } from './Classes/SingleClass/SingleClassPage';
+export { default as Home } from './Home/Home';
+export { default as Login } from './Login/Login';
+export { default as Navbar } from './Navbar/Navbar';
+export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
+export { default as SingleTeacherPage } from './Teachers/SingleTeacherPage';
+export { default as SchedulePage } from './Schedules/SchedulePage';
+export { default as AllTeachersPage } from './Teachers/AllTeachersPage';
+export { default as RouterComponent } from './RouterComponent';
