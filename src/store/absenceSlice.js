@@ -4,6 +4,7 @@ const initialState = {
     date:'',
     letterDay:'',
     allAbsentUsers: [],
+    singleAbsentUser:{},
     coveredClasses:[]
 };
 
@@ -20,6 +21,9 @@ export const absenceSlice = createSlice({
     setAllAbsentUsers: (state, action) => {
       state.allAbsentUsers = action.payload;
     },
+    setSingleAbsentUser: (state, action) => {
+      state.singleAbsentUser = action.payload;
+    },
     setCoveredClasses: (state, action) => {
       state.coveredClasses = action.payload;
     }
@@ -30,6 +34,7 @@ export const {
     setDate,
     setLetterDay,
     setAllAbsentUsers,
+    setSingleAbsentUser,
     setCoveredClasses
 } = absenceSlice.actions;
 
