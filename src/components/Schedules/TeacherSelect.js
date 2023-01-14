@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 
-const TeacherSelect = ({handleTeacherChange}) => {
+const TeacherSelect = ({userName,handleTeacherChange}) => {
     const { allUsers } = useSelector((state) => state.user);
 
     return (
         <>
             <label htmlFor="teacher">Teacher</label>
-            <select name='teacher' onChange={handleTeacherChange}>
+            <select name='teacher' value={userName} onChange={handleTeacherChange}>
                 <option value=''>-</option>
                 {allUsers.map((user) => {
                     return (

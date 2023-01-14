@@ -8,7 +8,7 @@ const AvailableCoverages = () => {
     const { classId,school,period,letter } = useParams();
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const { allUsers } = useSelector((state) => state.user);
-    const { allAbsentUsers,letterDay } = useSelector((state) => state.absence);
+    const { allAbsentUsers,singleAbsentUser,letterDay } = useSelector((state) => state.absence);
     const [availableUsers,setAvailableUsers] = useState([]);
     const [thisClass,setThisClass] = useState({});
     let [thisClassUserIds,setThisClassUserIds] = useState([]);
@@ -29,7 +29,13 @@ const AvailableCoverages = () => {
         const classes = await axios.get(`/api/classes/${school}/${period}/${letter}`);
         const busyUsers = classes.data.flatMap(eachClass => eachClass.users);
         const unAvailableUsers = busyUsers.filter((user)=>!thisClassUserIds.includes(user.id));
-        const allUnAvailableUsers = [...allAbsentUsers,...unAvailableUsers];
+
+        //~~this is the new stuff~
+        //const allUnAvailableUsers = [...allAbsentUsers,...unAvailableUsers]; //UNCOMMENT THIS TO RETURN TO OLD CODE!!
+        unAvailableUsers.push(singleAbsentUser);
+
+
+
         // making an array of all unique unavailable teacher ids
         // comparing the two user id arrays and making a final array of available user ids
         // we needed to make an array of ids so that we could filter out teachers who are not
@@ -37,7 +43,7 @@ const AvailableCoverages = () => {
         // this is because all objects are unique in memory even if key/value pairs are same
         // fetching all available teachers from their ids
         const allUserIds = allUsers.map((user)=>user.id);
-        const allUnAvailableUserIds = allUnAvailableUsers.map((user)=>user.id);
+        const allUnAvailableUserIds = unAvailableUsers.map((user)=>user.id);
         const availableUserIds = allUserIds.filter(id => !allUnAvailableUserIds.includes(id)); 
         const userPromises = availableUserIds.map(id => axios.get(`/api/users/${id}`));
         const userResponses = await Promise.all(userPromises);
@@ -47,7 +53,6 @@ const AvailableCoverages = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
 
     if(!token) return <NotFoundPage/>
     return (

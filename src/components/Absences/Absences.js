@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Absences = () => {
     const dispatch = useDispatch();
-    const { date,letterDay,coveredClasses } = useSelector((state) => state.absence);
+    const { date,letterDay,allAbsentUsers,coveredClasses } = useSelector((state) => state.absence);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
     const handleDateChange = (event) => {
@@ -30,16 +30,6 @@ const Absences = () => {
         const userPromises = absences.data.map(absence => axios.get(`/api/users/${absence.user.id}`));
         const userResponses = await Promise.all(userPromises);
         const userAbsences = userResponses.map(response => response.data);
-        const filteredClasses = userAbsences.map(eachUser => {
-            const newObj = {user: eachUser, classes: []};
-            eachUser.classes.forEach(eachClass => {
-              if (eachClass.letterDays.includes(letterDay)) {
-                newObj.classes.push(eachClass);
-              }
-            });
-            return newObj;
-          });
-        dispatch(setCoveredClasses(filteredClasses));
         dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
     };
 
@@ -63,14 +53,14 @@ const Absences = () => {
                 <input type='submit' value='Submit'/>
             </form>
             <div>
-                {coveredClasses.map((userObj) => {
+                {allAbsentUsers.map((user) => {
                     return (
-                        <div key={userObj.user.id}>
-                            <p>{userObj.user.firstName} {userObj.user.lastName}</p>
+                        <div key={user.id}>
+                            <p>{user.fullName}</p>
                             <ul>
-                                {userObj.classes.map((eachClass) =>{
+                                {user.classes.map((eachClass) =>{
                                     return (
-                                        <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
+                                        eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
                                     )
                                 })}
                             </ul>
