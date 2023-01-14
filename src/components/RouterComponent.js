@@ -18,7 +18,7 @@ const RouterComponent = () => {
     <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/absences" element={<Absences />} />
+      {/* <Route exact path="/absences" element={<Absences />} /> */}
       <Route exact path="/teachers" element={<AllTeachersPage />} />
       <Route exact path="/teachers/:id" element={<SingleTeacherPage />} />
       <Route exact path="/classes" element={<AllClassesPage />} />
