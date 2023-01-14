@@ -10,7 +10,6 @@ const SchedulePage = () => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const dispatch = useDispatch();
     const [user,setUser] = useState({});
-    //const [letterDay,setLetterDay] = useState('');
     const [classes,setClasses] = useState([]);
     const { singleAbsentUser,letterDay } = useSelector((state) => state.absence);
 
@@ -27,9 +26,9 @@ const SchedulePage = () => {
     return (
         <div>
             <h1>Teacher schedules</h1>
-            <TeacherSelect userName={singleAbsentUser.fullName} handleTeacherChange={handleTeacherChange}/>
+            <TeacherSelect singleAbsentUser={singleAbsentUser} handleTeacherChange={handleTeacherChange}/>
             <LetterDaysSelect letterDay={letterDay} handleLetterDayChange={handleLetterDayChange}/>
-            {/* <div key={singleAbsentUser.id}>
+            {singleAbsentUser.id && <div key={singleAbsentUser.id}>
                 <ul>
                     {singleAbsentUser.classes.map((eachClass) =>{
                         return (
@@ -37,7 +36,7 @@ const SchedulePage = () => {
                         )
                     })}
                 </ul>
-            </div> */}
+            </div>}
         </div>
     );
 };
