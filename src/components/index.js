@@ -1,5 +1,5 @@
 export { default as Absences } from './Absences/Absences';
-export { default as AvailableCoverages } from './AvailableCoverages/AvailableCoverages';
+export { default as AvailableCoverages } from './Coverages/AvailableCoverages';
 export { default as AllClassesPage } from './Classes/AllClasses/AllClassesPage';
 export { default as SingleClassPage } from './Classes/SingleClass/SingleClassPage';
 export { default as Home } from './Home/Home';
