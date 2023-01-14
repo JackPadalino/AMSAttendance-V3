@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NotFoundPage } from "..";
-import { setDate,setLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/absenceSlice";
+import { setSelectedDate,setLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/absenceSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Absences = () => {
@@ -16,7 +16,7 @@ const Absences = () => {
         const month = parseInt(selectedDate.slice(5,7));
         const day = parseInt(selectedDate.slice(8,10));
         const finalDate = `${year}-${month}-${day}`
-        dispatch(setDate(finalDate));
+        dispatch(setSelectedDate(finalDate));
     };
 
     const handleLetterDayChange = (event) =>{
