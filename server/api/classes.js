@@ -120,13 +120,9 @@ router.post('/',async(req, res, next) => {
         const newClass = await Class.create(classData);
         
         // assigning teachers to the newly created class
-        const teacherData = req.body.teacherNames;
-        teacherData.forEach(async(fullName)=>{
-            const foundTeacher = await User.findOne({
-                where:{
-                    fullName:fullName
-                }
-            });
+        const teacherData = req.body.teacherIds;
+        teacherData.forEach(async(id)=>{
+            const foundTeacher = await User.findByPk(id);
             if(foundTeacher) await UserClass.create({userId:foundTeacher.id,classId:newClass.id});
         });
 
@@ -153,7 +149,7 @@ router.put('/:classId',async(req, res, next) => {
         await classToUpdate.update(classData);
 
         // updating the teacher data
-        const teacherData = req.body.teacherNames;
+        const teacherData = req.body.teacherIds;
         if(teacherData[0]!=='' || teacherData[1]!==''){
             const userClasses = await UserClass.findAll({
                 where:{
@@ -163,12 +159,8 @@ router.put('/:classId',async(req, res, next) => {
             userClasses.forEach(async(userClass)=>{
                 await userClass.destroy();
             });
-            teacherData.forEach(async(fullName)=>{
-                const foundTeacher = await User.findOne({
-                    where:{
-                        fullName:fullName
-                    }
-                });
+            teacherData.forEach(async(id)=>{
+                const foundTeacher = await User.findByPk(id);
                 if(foundTeacher) await UserClass.create({userId:foundTeacher.id,classId:classToUpdate.id});
             });
         };

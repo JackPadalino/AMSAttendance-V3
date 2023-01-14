@@ -11,7 +11,7 @@ const Teacher1Select = ({handleTeacher1Change}) => {
                 <option value="">-</option>
                 {allUsers.map((user) => {
                     return (
-                        <option key={user.id} value={user.fullName}>{user.fullName}</option>
+                        <option key={user.id} value={user.id}>{user.fullName}</option>
                     );
                 })}
             </select>
