@@ -27,4 +27,34 @@ router.get('/absences/:date',async(req, res, next) => {
     };
 });
 
+// POST localhost:3000/api/attendance/absences
+router.post('/absences',async(req, res, next) => {
+    try {
+        const data = {
+            userId:req.body.absentUserId,
+            date:req.body.selectedDate
+        };
+        let todaysDate;
+        const foundDate = await Day.findOne({
+            where:{
+                date:data.date
+            }
+        });
+        if(foundDate) todaysDate=foundDate;
+        else{
+            const newDate = await Day.create({
+                date:data.date
+            });
+            todaysDate=newDate;
+        };
+        await Absence.create({
+            userId:data.userId,
+            dayId:todaysDate.id
+        });
+        res.sendStatus(200);
+    }catch(error){
+        next(error);
+    };
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    date:'',
+    selectedDate:'',
     letterDay:'',
     allAbsentUsers: [],
     singleAbsentUser:{},
@@ -12,8 +12,8 @@ export const absenceSlice = createSlice({
   name: "absence",
   initialState,
   reducers: {
-    setDate: (state, action) => {
-        state.date = action.payload;
+    setSelectedDate: (state, action) => {
+        state.selectedDate = action.payload;
     },
     setLetterDay: (state, action) => {
       state.letterDay = action.payload;
@@ -31,7 +31,7 @@ export const absenceSlice = createSlice({
 });
 
 export const {
-    setDate,
+    setSelectedDate,
     setLetterDay,
     setAllAbsentUsers,
     setSingleAbsentUser,
