@@ -32,7 +32,7 @@ const SchedulePage = () => {
                 <ul>
                     {singleAbsentUser.classes.map((eachClass) =>{
                         return (
-                            eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
+                            eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}>{eachClass.name} - {eachClass.period}</li>
                         )
                     })}
                 </ul>
