@@ -6,7 +6,7 @@ export { default as Navbar } from './Navbar/Navbar';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 
 // absence components
-export { default as Absences } from './Absences/Absences';
+// export { default as Absences } from './Absences/Absences';
 
 // coverage components
 export { default as CoveragesPage } from './Coverages/CoveragesPage';

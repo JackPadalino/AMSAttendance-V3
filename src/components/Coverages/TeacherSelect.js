@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { setAllAbsentUsers, setCoverageDate } from "../../store/coverageSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { setAllAbsentUsers, setCoverageDate } from "../../store/coverageSlice";
 
 const TeacherSelect = () => {
     const dispatch = useDispatch();

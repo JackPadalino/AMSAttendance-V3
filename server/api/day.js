@@ -13,14 +13,25 @@ router.get('/:date',async(req, res, next) => {
             }
         });
         if(foundDate){
-            day=foundDate;
+            day = foundDate;
         }else{
-            const newDay = await Day.create({
-                date:req.params.date
-            });
-            day=newDay;
+            day = {}; // sending back an empty object if day does not exist
         };
         res.send(day);
+    }catch(error){
+        next(error);
+    };
+});
+
+// POST localhost:3000/api/day
+router.post('/',async(req, res, next) => {
+    try {
+        const data = {
+            date:req.body.date,
+            letterDay:req.body.letterDay
+        };
+        await Day.create(data);
+        res.sendStatus(200);
     }catch(error){
         next(error);
     };

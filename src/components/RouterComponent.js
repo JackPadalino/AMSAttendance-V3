@@ -8,7 +8,7 @@ import {
   SingleClassPage,
   AllClassesPage,
   // absence components
-  Absences,
+  //Absences,
   // teacher components
   SingleTeacherPage,
   AllTeachersPage,
