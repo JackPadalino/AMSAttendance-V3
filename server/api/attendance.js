@@ -32,7 +32,7 @@ router.post('/absences',async(req, res, next) => {
     try {
         const data = {
             userId:req.body.absentUserId,
-            date:req.body.selectedDate
+            date:req.body.coverageDate
         };
         let todaysDate;
         const foundDate = await Day.findOne({
