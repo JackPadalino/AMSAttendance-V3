@@ -35,7 +35,7 @@ const DateLetterDayForm = () => {
             <input type="date" id="date" value={coverageDate} onChange={handleDateChange}></input>
             <label htmlFor="letter day">Letter day</label>
             <select name="letter day" id="letter day" value={coverageLetterDay} onChange={handleLetterDayChange}>
-                <option value="-">-</option>
+                <option value="">-</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
