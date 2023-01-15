@@ -32,7 +32,8 @@ router.post('/absences',async(req, res, next) => {
     try {
         const data = {
             userId:req.body.absentUserId,
-            date:req.body.coverageDate
+            date:req.body.coverageDate,
+            letterDay:req.body.coverageLetterDay
         };
         let todaysDate;
         const foundDate = await Day.findOne({
@@ -43,7 +44,8 @@ router.post('/absences',async(req, res, next) => {
         if(foundDate) todaysDate=foundDate;
         else{
             const newDate = await Day.create({
-                date:data.date
+                date:data.date,
+                letterDay:data.letterDay
             });
             todaysDate=newDate;
         };
