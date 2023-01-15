@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import { setCoverageDate,setAllAbsentUsers } from "../../store/coverageSlice";
+import { setCoverageDate,setCoverageLetterDay,setAllAbsentUsers } from "../../store/coverageSlice";
 import { useSelector,useDispatch } from "react-redux";
 
-const DateSelect = () => {
+const DateLetterDayForm = () => {
     const dispatch = useDispatch();
-    const { coverageDate } = useSelector((state) => state.coverage);
-    
+    const { coverageDate,coverageLetterDay } = useSelector((state) => state.coverage);
+
     const handleDateChange = async(event) => {
         event.preventDefault();
         // handling date
@@ -24,12 +24,27 @@ const DateSelect = () => {
         dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
     };
 
+    const handleLetterDayChange = async(event)=>{
+        event.preventDefault();
+        dispatch(setCoverageLetterDay(event.target.value));
+    }
+
     return (
         <form>
             <label htmlFor="date">Date</label>
             <input type="date" id="date" value={coverageDate} onChange={handleDateChange}></input>
+            <label htmlFor="letter day">Letter day</label>
+            <select name="letter day" id="letter day" value={coverageLetterDay} onChange={handleLetterDayChange}>
+                <option value="-">-</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+            </select>
         </form>
     );
 };
 
-export default DateSelect;
+export default DateLetterDayForm;
