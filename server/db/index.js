@@ -10,26 +10,31 @@ const Message = require("./Message");
 User.belongsToMany(Class, { through: UserClass });
 Class.belongsToMany(User, { through: UserClass });
 
+// absences
 Absence.belongsTo(User);
 User.hasMany(Absence);
-
-Coverage.belongsTo(User);
-User.hasMany(Coverage);
-
-Coverage.belongsTo(Day);
-Day.hasMany(Coverage);
-
-Coverage.belongsTo(Class);
-Class.hasMany(Coverage);
 
 Absence.belongsTo(Day);
 Day.hasMany(Absence);
 
+// coverages
+Coverage.belongsTo(User);
+User.hasMany(Coverage);
+
+Coverage.belongsTo(Class);
+Class.hasMany(Coverage);
+
+Coverage.belongsTo(Day);
+Day.hasMany(Coverage);
+
 // User - Class M:M
-// User - Absence 1:M
-// User - Coverage 1:M
-// Day - Absence 1:M
-// Day - Coverage 1:M
+
+// Absence - User 1:M
+// Absence - Day 1:M
+
+// Coverage - User 1:M
+// Coverage - Class 1:M
+// Coverage - Day 1:M
 
 module.exports = {
     db,
