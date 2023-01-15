@@ -12,7 +12,12 @@ const Day = db.define("day", {
     validate: {
         isDate: true,
     }
-  }
+  },
+  letterDay:{
+    type:Sequelize.ENUM,
+    values:['A','B','C','D','E','F'],
+    allowNull:false
+  },
 });
 
 module.exports = Day;
