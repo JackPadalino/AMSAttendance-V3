@@ -4,35 +4,33 @@ import { useDispatch,useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { NotFoundPage } from "..";
 import { TeacherSelect,LetterDaysSelect } from '.'
-import { setSingleAbsentUser,setLetterDay } from "../../store/absenceSlice";
+import { setScheduleDate,setScheduleLetterDay,setScheduleAbsentUser } from "../../store/scheduleSlice";
 
 const SchedulePage = () => {
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const dispatch = useDispatch();
-    const [user,setUser] = useState({});
-    const [classes,setClasses] = useState([]);
-    const { singleAbsentUser,letterDay } = useSelector((state) => state.absence);
+    const { scheduleAbsentUser,scheduleLetterDay } = useSelector((state) => state.schedule);
 
     const handleTeacherChange = async(event) =>{
         const user = await axios.get(`/api/users/${event.target.value}`)
-        dispatch(setSingleAbsentUser(user.data));
+        dispatch(setScheduleAbsentUser(user.data));
     };
 
     const handleLetterDayChange = (event) =>{
-        dispatch(setLetterDay(event.target.value));
+        dispatch(setScheduleLetterDay(event.target.value));
     };
 
     if(!token) return <NotFoundPage/>
     return (
         <div>
             <h1>Teacher schedules</h1>
-            <TeacherSelect singleAbsentUser={singleAbsentUser} handleTeacherChange={handleTeacherChange}/>
-            <LetterDaysSelect letterDay={letterDay} handleLetterDayChange={handleLetterDayChange}/>
-            {singleAbsentUser.id && <div key={singleAbsentUser.id}>
+            <TeacherSelect scheduleAbsentUser={scheduleAbsentUser} handleTeacherChange={handleTeacherChange}/>
+            <LetterDaysSelect scheduleLetterDay={scheduleLetterDay} handleLetterDayChange={handleLetterDayChange}/>
+            {scheduleAbsentUser.id && <div key={scheduleAbsentUser.id}>
                 <ul>
-                    {singleAbsentUser.classes.map((eachClass) =>{
+                    {scheduleAbsentUser.classes.map((eachClass) =>{
                         return (
-                            eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
+                            eachClass.letterDays.includes(scheduleLetterDay) && <li key={eachClass.id}>{eachClass.name} - {eachClass.period}</li>
                         )
                     })}
                 </ul>

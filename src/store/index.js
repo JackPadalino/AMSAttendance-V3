@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice";
-import classReducer from "./classSlice";
 import absenceReducer from './absenceSlice';
+import classReducer from "./classSlice";
+import scheduleReducer from './scheduleSlice';
+import userReducer from "./userSlice";
 
 const store = configureStore({
   reducer: {
-    user: userReducer,
+    absence:absenceReducer,
     class:classReducer,
-    absence:absenceReducer
+    schedule: scheduleReducer,
+    user: userReducer
   },
 });
 

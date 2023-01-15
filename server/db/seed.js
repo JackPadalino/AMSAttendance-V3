@@ -537,12 +537,12 @@ const seed = async () => {
 
     //-------------create all days here-------------//
     const dayList = [
-        {date:'2022-12-16'},
-        {date:'2022-12-19'},
-        {date:'2022-12-20'},
-        {date:'2022-12-21'},
-        {date:'2022-12-22'},
-        {date:'2022-12-23'}
+        {date:'2022-12-16',letterDay:'A'},
+        {date:'2022-12-19',letterDay:'B'},
+        {date:'2022-12-20',letterDay:'C'},
+        {date:'2022-12-21',letterDay:'D'},
+        {date:'2022-12-22',letterDay:'E'},
+        {date:'2022-12-23',letterDay:'F'}
     ];
 
     const [
