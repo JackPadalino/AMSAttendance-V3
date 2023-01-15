@@ -3,12 +3,12 @@ import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NotFoundPage } from "..";
 import { TeacherSelect } from './';
-import { setSelectedDate,setLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/absenceSlice";
+import { setCoverageDate,setCoverageLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/coverageSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const CoveragesPage = () => {
     const dispatch = useDispatch();
-    const { selectedDate,letterDay,allAbsentUsers,coveredClasses } = useSelector((state) => state.absence);
+    const { coverageDate,coverageLetterDay,allAbsentUsers,coveredClasses } = useSelector((state) => state.absence);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
     const [absentUserId,setAbsentUserId] = useState({});
     
@@ -49,17 +49,11 @@ const CoveragesPage = () => {
         <div>
             <h1>Absences/Coverages</h1>
             <div>
-                <form>
-                    <label htmlFor="date">Date</label>
-                    <input type="date" id="date" value={selectedDate} onChange={handleDateChange}></input>
-                </form>
+
             </div>
             <div>
                 <h3>Absences {selectedDate}</h3>
-                <form onSubmit={createAbsence}>
-                    <TeacherSelect handleTeacherChange={handleTeacherChange}/>
-                    <input type='submit' value='Mark absent'/>
-                </form>
+                <TeacherSelect createAbsence={createAbsence} handleTeacherChange={handleTeacherChange}/>
                 {allAbsentUsers.map((user) => {
                     return (
                         <div key={user.id}>

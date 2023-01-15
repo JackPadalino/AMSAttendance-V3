@@ -2,12 +2,12 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NotFoundPage } from "..";
-import { setSelectedDate,setLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/absenceSlice";
+import { setCoverageDate,setCoverageLetterDay,setAllAbsentUsers,setCoveredClasses } from "../../store/coverageSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Absences = () => {
     const dispatch = useDispatch();
-    const { date,letterDay,allAbsentUsers,coveredClasses } = useSelector((state) => state.absence);
+    const { coverageDate,coverageLetterDay,allAbsentUsers,coveredClasses } = useSelector((state) => state.coverage);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
     const handleDateChange = (event) => {
@@ -16,12 +16,12 @@ const Absences = () => {
         const month = parseInt(selectedDate.slice(5,7));
         const day = parseInt(selectedDate.slice(8,10));
         const finalDate = `${year}-${month}-${day}`
-        dispatch(setSelectedDate(finalDate));
+        dispatch(setCoverageDate(finalDate));
     };
 
     const handleLetterDayChange = (event) =>{
         const newLetterDay = event.target.value;
-        dispatch(setLetterDay(newLetterDay));
+        dispatch(setCoverageLetterDay(newLetterDay));
     };
 
     const getAbsences = async(event) =>{
@@ -41,7 +41,7 @@ const Absences = () => {
                 <label htmlFor="date">Date</label>
                 <input type="date" id="date" value={date} onChange={handleDateChange}></input>
                 <label htmlFor="letter day">Letter day</label>
-                <select name="letter day" id="letter day" value={letterDay} onChange={handleLetterDayChange}>
+                <select name="letter day" id="letter day" value={coverageDate} onChange={handleLetterDayChange}>
                     <option value="-">-</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -60,7 +60,7 @@ const Absences = () => {
                             <ul>
                                 {user.classes.map((eachClass) =>{
                                     return (
-                                        eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
+                                        eachClass.letterDays.includes(coverageLetterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
                                     )
                                 })}
                             </ul>

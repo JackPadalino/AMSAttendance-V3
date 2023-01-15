@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import absenceReducer from './absenceSlice';
+import coverageReducer from './coverageSlice';
 import classReducer from "./classSlice";
 import scheduleReducer from './scheduleSlice';
 import userReducer from "./userSlice";
 
 const store = configureStore({
   reducer: {
-    absence:absenceReducer,
+    coverage:coverageReducer,
     class:classReducer,
     schedule: scheduleReducer,
     user: userReducer
