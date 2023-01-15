@@ -21,8 +21,8 @@ const DateSelect = () => {
             dispatch(setCoverageDay(foundDay.data));
         }else{
             dispatch(resetCoverageDay());
-            dispatch(setSelectedCoverageDate(date));
         };
+        dispatch(setSelectedCoverageDate(date));
         dispatch(setDaySelected(true));
         // // getting absences
         // const absences = await axios.get(`/api/attendance/absences/${newDate}`);
