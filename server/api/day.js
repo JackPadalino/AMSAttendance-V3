@@ -23,7 +23,7 @@ router.get('/:date',async(req, res, next) => {
     };
 });
 
-// GET localhost:3000/api/day/:dayId
+// GET localhost:3000/api/day
 router.get('/',async(req, res, next) => {
     try {
         const days = await Day.findAll({
@@ -67,6 +67,23 @@ router.delete('/:dayId',async(req,res,next)=>{
         if(error.message===notFoundMessage){
             return res.status(404).send({message:notFoundMessage});
         }
+        next(error);
+    };
+});
+
+// PUT localhost:3000/api/day/:dayId
+router.put('/:dayId',async(req,res,next)=>{
+    const notFoundMessage = 'The object you are trying to update does not exist!';
+    try{
+        const data = {
+            date:req.body.date,
+            letterDay:req.body.letterDay
+        };
+        const dayToUpdate = await Day.findByPk(req.params.dayId);
+        if(!dayToUpdate) throw new Error(notFoundMessage);
+        await dayToUpdate.update(data);
+        res.sendStatus(200);
+    }catch(error){
         next(error);
     };
 });
