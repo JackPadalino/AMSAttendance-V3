@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useSelector,useDispatch } from "react-redux";
-import { setCoverageDay,setSelectedCoverageDate,setDaySelected,resetCoverageDay } from "../../store/coverageSlice";
+import { setCoverageDay,setSelectedCoverageDate,setDaySelected,resetCoverageDay,setAllAbsentUsers,resetAllAbsentUsers } from "../../store/coverageSlice";
 
 const DateSelect = () => {
     const dispatch = useDispatch();
@@ -23,15 +23,16 @@ const DateSelect = () => {
         const foundDay = await axios.get(`/api/day/${date}`);
         if(foundDay.data.id){
             dispatch(setCoverageDay(foundDay.data));
+            // getting absences
+            const absences = await axios.get(`/api/attendance/absences/${date}`);
+            const userPromises = absences.data.map(absence => axios.get(`/api/users/${absence.user.id}`));
+            const userResponses = await Promise.all(userPromises);
+            const userAbsences = userResponses.map(response => response.data);
+            dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
         }else{
             dispatch(resetCoverageDay());
+            dispatch(resetAllAbsentUsers());
         };
-        // // getting absences
-        // const absences = await axios.get(`/api/attendance/absences/${newDate}`);
-        // const userPromises = absences.data.map(absence => axios.get(`/api/users/${absence.user.id}`));
-        // const userResponses = await Promise.all(userPromises);
-        // const userAbsences = userResponses.map(response => response.data);
-        // dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
     };
 
     return (
