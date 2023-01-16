@@ -30,6 +30,22 @@ const SingleClassPage = () => {
     const [successMessage,setSuccessMessage] = useState(false);
     const [confirmDeleteMessage,setConfirmDeleteMessage] = useState(false);
 
+    const fetchClass = async() =>{
+        setLoading(true);
+        const foundClass = await axios.get(`/api/classes/${id}`);
+        setClassName(foundClass.data.name);
+        setSchool(foundClass.data.school);
+        setGrade(foundClass.data.grade);
+        setPeriod(foundClass.data.period);
+        setLetterDays(foundClass.data.letterDays);
+        setUsers(foundClass.data.users);
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchClass();
+      }, []);
+
     const updateClass = async(event) =>{
         event.preventDefault();
         const body = {
@@ -82,22 +98,6 @@ const SingleClassPage = () => {
     const handleTeacherChange = (event) =>{;
         setUserId(event.target.value);
     };
-    
-    const fetchClass = async() =>{
-        setLoading(true);
-        const foundClass = await axios.get(`/api/classes/${id}`);
-        setClassName(foundClass.data.name);
-        setSchool(foundClass.data.school);
-        setGrade(foundClass.data.grade);
-        setPeriod(foundClass.data.period);
-        setLetterDays(foundClass.data.letterDays);
-        setUsers(foundClass.data.users);
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        fetchClass();
-      }, []);
 
     const confirmDelete = () =>{
         confirmDeleteMessage ? setConfirmDeleteMessage(false) : setConfirmDeleteMessage(true);
