@@ -117,15 +117,7 @@ router.post('/',async(req, res, next) => {
             period:req.body.period,
             letterDays:req.body.letterDays
         };
-        const newClass = await Class.create(classData);
-        
-        // assigning teachers to the newly created class
-        const teacherData = req.body.teacherIds;
-        teacherData.forEach(async(id)=>{
-            const foundTeacher = await User.findByPk(id);
-            if(foundTeacher) await UserClass.create({userId:foundTeacher.id,classId:newClass.id});
-        });
-
+        await Class.create(classData);
         res.sendStatus(200);
     }catch(error){
         next(error);
@@ -145,31 +137,27 @@ router.put('/:classId',async(req, res, next) => {
             letterDays:req.body.letterDays
         };
         const classToUpdate = await Class.findByPk(req.params.classId);
-        if(!classToUpdate) throw new Error(notFoundMessage);
-        await classToUpdate.update(classData);
-
-        // updating the teacher data
-        const teacherData = req.body.teacherIds;
-        if(teacherData[0]!=='' || teacherData[1]!==''){
-            const userClasses = await UserClass.findAll({
-                where:{
-                    classId:req.params.classId
-                }
-            });
-            userClasses.forEach(async(userClass)=>{
-                await userClass.destroy();
-            });
-            teacherData.forEach(async(id)=>{
-                const foundTeacher = await User.findByPk(id);
-                if(foundTeacher) await UserClass.create({userId:foundTeacher.id,classId:classToUpdate.id});
-            });
+        if(!classToUpdate){
+            throw new Error(notFoundMessage)
+        }else{
+            await classToUpdate.update(classData);
         };
-
+        
+        // updating the teacher data
+        const userData = {userId:req.body.userId};
+        if(userData.userId!==''){
+            const foundTeacher = await User.findByPk(userData.userId);
+            if(!foundTeacher){
+                throw new Error(notFoundMessage)
+            }else{
+                await UserClass.create({userId:foundTeacher.id,classId:classToUpdate.id});
+            };
+        };
         res.sendStatus(200);
     }catch(error){
         if(error.message===notFoundMessage){
             return res.status(404).send({message:notFoundMessage});
-        }
+        };
         next(error);
     };
 });
