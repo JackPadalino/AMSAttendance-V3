@@ -27,6 +27,9 @@ export const coverageSlice = createSlice({
     setAllAbsentUsers: (state, action) => {
       state.allAbsentUsers = action.payload;
     },
+    resetAllAbsentUsers: (state, action) => {
+      state.allAbsentUsers = initialState.allAbsentUsers;
+    },
     setCoveredClasses: (state, action) => {
       state.coveredClasses = action.payload;
     }
@@ -39,6 +42,7 @@ export const {
     resetCoverageDay,
     setSelectedCoverageDate,
     setAllAbsentUsers,
+    resetAllAbsentUsers,
     setCoveredClasses
 } = coverageSlice.actions;
 
