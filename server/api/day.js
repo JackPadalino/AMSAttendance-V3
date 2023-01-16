@@ -23,6 +23,18 @@ router.get('/:date',async(req, res, next) => {
     };
 });
 
+// GET localhost:3000/api/day/:dayId
+router.get('/',async(req, res, next) => {
+    try {
+        const days = await Day.findAll({
+            include:[Absence]
+        });
+        res.send(days);
+    }catch(error){
+        next(error);
+    };
+});
+
 // POST localhost:3000/api/day
 router.post('/',async(req, res, next) => {
     try {
@@ -33,6 +45,28 @@ router.post('/',async(req, res, next) => {
         await Day.create(data);
         res.sendStatus(200);
     }catch(error){
+        next(error);
+    };
+});
+
+// DELETE localhost:3000/api/day/:dayId
+router.delete('/:dayId',async(req,res,next)=>{
+    const notFoundMessage = 'The object you are trying to delete does not exist!';
+    try{
+        const dayToDelete = await Day.findByPk(req.params.dayId);
+        if(!dayToDelete) throw new Error(notFoundMessage);
+        const absences = await Absence.findAll({
+            where:{
+                dayId:dayToDelete.id
+            }
+        });
+        absences.forEach(async(absence)=>await absence.destroy());
+        await dayToDelete.destroy();
+        res.sendStatus(200);
+    }catch(error){
+        if(error.message===notFoundMessage){
+            return res.status(404).send({message:notFoundMessage});
+        }
         next(error);
     };
 });
