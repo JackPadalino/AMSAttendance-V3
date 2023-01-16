@@ -32,7 +32,8 @@ router.post('/absences',async(req, res, next) => {
     try {
         const data = {
             userId:req.body.absentUserId,
-            date:req.body.selectedDate
+            date:req.body.coverageDate,
+            letterDay:req.body.coverageLetterDay
         };
         let todaysDate;
         const foundDate = await Day.findOne({
@@ -43,7 +44,8 @@ router.post('/absences',async(req, res, next) => {
         if(foundDate) todaysDate=foundDate;
         else{
             const newDate = await Day.create({
-                date:data.date
+                date:data.date,
+                letterDay:data.letterDay
             });
             todaysDate=newDate;
         };
@@ -52,6 +54,18 @@ router.post('/absences',async(req, res, next) => {
             dayId:todaysDate.id
         });
         res.sendStatus(200);
+    }catch(error){
+        next(error);
+    };
+});
+
+// GET localhost:3000/api/attendance/absences
+router.get('/absences',async(req, res, next) => {
+    try {
+        const absences = await Absence.findAll({
+            include:[User]
+        });
+        res.send(absences);
     }catch(error){
         next(error);
     };

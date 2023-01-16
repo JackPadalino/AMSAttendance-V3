@@ -11,7 +11,8 @@ const Day = db.define("day", {
     type: Sequelize.STRING,
     validate: {
         isDate: true,
-    }
+    },
+    unique:true
   },
   letterDay:{
     type:Sequelize.ENUM,

@@ -6,11 +6,11 @@ export { default as Navbar } from './Navbar/Navbar';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
 
 // absence components
-export { default as Absences } from './Absences/Absences';
+// export { default as Absences } from './Absences/Absences';
 
 // coverage components
 export { default as CoveragesPage } from './Coverages/CoveragesPage';
-export { default as AvailableCoverages } from './Coverages/AvailableCoverages';
+// export { default as AvailableCoverages } from './Coverages/AvailableCoverages';
 
 // class components
 export { default as SingleClassPage } from './Classes/SingleClass/SingleClassPage';

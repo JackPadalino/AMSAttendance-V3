@@ -8,13 +8,13 @@ import {
   SingleClassPage,
   AllClassesPage,
   // absence components
-  Absences,
+  //Absences,
   // teacher components
   SingleTeacherPage,
   AllTeachersPage,
   // coverage components
   CoveragesPage,
-  AvailableCoverages,
+  //AvailableCoverages,
   // schedule components
   SchedulePage
 } from ".";
@@ -40,7 +40,7 @@ const RouterComponent = () => {
       
       {/* coverage routes */}
       <Route exact path="/coverages" element={<CoveragesPage />}/>
-      <Route exact path="/coverages/:classId/:school/:period/:letter" element={<AvailableCoverages />} />
+      {/* <Route exact path="/coverages/:classId/:school/:period/:letter" element={<AvailableCoverages />} /> */}
 
       {/* schedule routes */}
       <Route exact path="/schedules" element={<SchedulePage />} />
