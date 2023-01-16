@@ -4,18 +4,22 @@ import { DateSelect,LetterDaySelect,TeacherSelect } from './';
 import { NotFoundPage } from "..";
 
 const CoveragesPage = () => {
-    const { coverageDay,daySelected,allAbsentUsers } = useSelector((state) => state.coverage);
+    const { daySelected,coverageDay,allAbsentUsers } = useSelector((state) => state.coverage);
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
     if(!token) return <NotFoundPage/>
     return (
         <div>
             <h1>Absences/Coverages</h1>
-            <DateSelect/>
-            {daySelected && !coverageDay.id && <p style={{color:'red'}}>No information about this date. Please select a letter day to get started.</p>}
-            {daySelected && !coverageDay.id && <LetterDaySelect/>}
             <div>
-                {coverageDay.id && <h1>{coverageDay.date} {coverageDay.letterDay} day</h1>}
+                <DateSelect/>
+            </div>
+            {daySelected && !coverageDay.id && <div>
+                <p style={{color:'red'}}>No information about this date. Please select a letter day to get started.</p>
+                <LetterDaySelect/>
+            </div>}
+            {daySelected && coverageDay.id && <div>
+                <h1>{coverageDay.date} {coverageDay.letterDay} day</h1>
                 {/* <h3>Add an absence</h3> */}
                 {/* <TeacherSelect /> */}
                 {/* {allAbsentUsers.map((user) => {
@@ -32,7 +36,7 @@ const CoveragesPage = () => {
                         </div>  
                     );
                 })} */}
-            </div>
+            </div>}
         </div>
     );
 };

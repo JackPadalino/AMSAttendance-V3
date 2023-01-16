@@ -10,20 +10,22 @@ const DateSelect = () => {
     const handleDateChange = async(event) => {
         event.preventDefault();
         // handling date
-        const date = event.target.value;
-        const year = date.slice(0,4);
-        const month = parseInt(date.slice(5,7));
-        const day = parseInt(date.slice(8,10));
-        const newDate = `${year}-${month}-${day}`;
+        const selectedDate = event.target.value;
+        dispatch(setDaySelected(true));
+        dispatch(setSelectedCoverageDate(selectedDate));
+
+        const year = selectedDate.slice(0,4);
+        const month = parseInt(selectedDate.slice(5,7));
+        const day = parseInt(selectedDate.slice(8,10));
+        const date = `${year}-${month}-${day}`;
+
         // finding selected day in db
-        const foundDay = await axios.get(`/api/day/${newDate}`);
+        const foundDay = await axios.get(`/api/day/${date}`);
         if(foundDay.data.id){
             dispatch(setCoverageDay(foundDay.data));
         }else{
             dispatch(resetCoverageDay());
         };
-        dispatch(setSelectedCoverageDate(date));
-        dispatch(setDaySelected(true));
         // // getting absences
         // const absences = await axios.get(`/api/attendance/absences/${newDate}`);
         // const userPromises = absences.data.map(absence => axios.get(`/api/users/${absence.user.id}`));

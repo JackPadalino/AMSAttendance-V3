@@ -15,16 +15,20 @@ const LetterDaySelect = () => {
 
     const createNewDay = async(event) => {
         event.preventDefault();
+
         const year = selectedCoverageDate.slice(0,4);
         const month = parseInt(selectedCoverageDate.slice(5,7));
         const day = parseInt(selectedCoverageDate.slice(8,10));
         const date = `${year}-${month}-${day}`;
+
         const letterDay = selectedLetterDay;
+
         const body = {
             date,
             letterDay
         };
         await axios.post('/api/day',body);
+        
         const foundDay = await axios.get(`/api/day/${date}`);
         if(foundDay.data.id){
             dispatch(setCoverageDay(foundDay.data));
