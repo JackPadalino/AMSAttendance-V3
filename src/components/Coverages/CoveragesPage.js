@@ -20,22 +20,25 @@ const CoveragesPage = () => {
             </div>}
             {daySelected && coverageDay.id && <div>
                 <h1>{coverageDay.date} {coverageDay.letterDay} day</h1>
-                {/* <h3>Add an absence</h3> */}
-                {/* <TeacherSelect /> */}
-                {/* {allAbsentUsers.map((user) => {
-                    return (
-                        <div key={user.id}>
-                            <p>{user.fullName}</p>
-                            <ul>
-                                {user.classes.map((eachClass) =>{
-                                    return (
-                                        eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
-                                    )
-                                })}
-                            </ul>
-                        </div>  
-                    );
-                })} */}
+                <div>
+                    <TeacherSelect />
+                </div>
+                <div>
+                    {allAbsentUsers.map((user) => {
+                        return (
+                            <div key={user.id}>
+                                <p>{user.fullName}</p>
+                                {/* <ul>
+                                    {user.classes.map((eachClass) =>{
+                                        return (
+                                            eachClass.letterDays.includes(letterDay) && <li key={eachClass.id}><Link to={`/coverages/${eachClass.id}/${eachClass.school}/${eachClass.period}/${letterDay}`}>{eachClass.name} - {eachClass.period}</Link></li>
+                                        )
+                                    })}
+                                </ul> */}
+                            </div>  
+                        );
+                    })}
+                </div>
             </div>}
         </div>
     );
