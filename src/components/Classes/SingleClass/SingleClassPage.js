@@ -41,13 +41,14 @@ const SingleClassPage = () => {
             userId
         };
         await axios.put(`/api/classes/${id}`,body);
-        const updateClass = await axios.get(`/api/classes/${id}`);
-        setClassName(updateClass.data.name);
-        setSchool(updateClass.data.school);
-        setGrade(updateClass.data.grade);
-        setPeriod(updateClass.data.period);
-        setLetterDays(updateClass.data.letterDays);
-        setUsers(updateClass.data.users);
+        const updatedClass = await axios.get(`/api/classes/${id}`);
+        setClassName(updatedClass.data.name);
+        setSchool(updatedClass.data.school);
+        setGrade(updatedClass.data.grade);
+        setPeriod(updatedClass.data.period);
+        setLetterDays(updatedClass.data.letterDays);
+        setUsers(updatedClass.data.users);
+        
         const allClasses = await axios.get(`/api/classes`);
         dispatch(setAllClasses(allClasses.data));
         setSuccessMessage(true);
