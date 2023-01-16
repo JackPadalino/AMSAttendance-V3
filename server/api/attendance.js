@@ -59,4 +59,16 @@ router.post('/absences',async(req, res, next) => {
     };
 });
 
+// GET localhost:3000/api/attendance/absences
+router.get('/absences',async(req, res, next) => {
+    try {
+        const absences = await Absence.findAll({
+            include:[User]
+        });
+        res.send(absences);
+    }catch(error){
+        next(error);
+    };
+});
+
 module.exports = router;
