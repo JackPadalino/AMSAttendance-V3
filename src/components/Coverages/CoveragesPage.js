@@ -21,9 +21,7 @@ const CoveragesPage = () => {
             {daySelected && coverageDay.id && <div>
                 <h1>{coverageDay.date} {coverageDay.letterDay} day</h1>
                 <div>
-                    <TeacherSelect />
-                </div>
-                <div>
+                    <h3>Absences today</h3>
                     {allAbsentUsers.map((user) => {
                         return (
                             <div key={user.id}>
@@ -38,6 +36,9 @@ const CoveragesPage = () => {
                             </div>  
                         );
                     })}
+                    <div>
+                        <TeacherSelect />
+                    </div>
                 </div>
             </div>}
         </div>
