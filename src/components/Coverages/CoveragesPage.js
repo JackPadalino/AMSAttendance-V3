@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
 import { DateSelect,LetterDaySelect,TeacherSelect } from './';
 import { NotFoundPage } from "..";
@@ -33,6 +34,8 @@ const CoveragesPage = () => {
         dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
     };
 
+    console.log(allAbsentUsers.length);
+
     if(!token) return <NotFoundPage/>
     return (
         <div>
@@ -45,7 +48,7 @@ const CoveragesPage = () => {
                 <LetterDaySelect/>
             </div>}
             {daySelected && coverageDay.id && <div>
-                <h1>{coverageDay.date} {coverageDay.letterDay} day</h1>
+                <h1><Link to={'/single-day'}>{coverageDay.date} {coverageDay.letterDay} day</Link></h1>
                 <div>
                     <h3>Absences today</h3>
                     <div>
