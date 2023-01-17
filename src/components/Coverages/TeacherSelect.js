@@ -35,7 +35,6 @@ const TeacherSelect = () => {
     return (
         <>
             <form onSubmit={createAbsence}>
-                <label htmlFor="teacher">Teacher</label>
                 <select name='teacher' onChange={handleTeacherChange}>
                     <option value=''>-</option>
                     {allUsers.map((user) => {

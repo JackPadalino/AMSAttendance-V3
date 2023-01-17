@@ -22,3 +22,6 @@ export { default as AllTeachersPage } from './Teachers/AllTeachersPage';
 
 // schedule components
 export { default as SchedulePage } from './Schedules/SchedulePage';
+
+// day components
+export { default as SingleDay } from './Day/SingleDay';

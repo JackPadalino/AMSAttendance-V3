@@ -16,7 +16,9 @@ import {
   CoveragesPage,
   //AvailableCoverages,
   // schedule components
-  SchedulePage
+  SchedulePage,
+  // day component
+  SingleDay
 } from ".";
 
 const RouterComponent = () => {
@@ -44,6 +46,8 @@ const RouterComponent = () => {
 
       {/* schedule routes */}
       <Route exact path="/schedules" element={<SchedulePage />} />
+      {/* day routes */}
+      <Route exact path="/single-day" element={<SingleDay />} />
     </Routes>
   );
 };

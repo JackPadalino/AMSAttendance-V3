@@ -3,7 +3,7 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const { User,Day,Absence,Message,Coverage } = require("../db");
 
-// GET localhost:3000/api/day/:dayId
+// GET localhost:3000/api/day/:date
 router.get('/:date',async(req, res, next) => {
     try {
         let day;
@@ -18,6 +18,16 @@ router.get('/:date',async(req, res, next) => {
             day = {}; // sending back an empty object if day does not exist
         };
         res.send(day);
+    }catch(error){
+        next(error);
+    };
+});
+
+// GET localhost:3000/api/day
+router.get('/:dayId',async(req, res, next) => {
+    try {
+        const foundDay = await Day.findByOk(req.params.dayId);
+        res.send(foundDay);
     }catch(error){
         next(error);
     };
@@ -81,8 +91,8 @@ router.put('/:dayId',async(req,res,next)=>{
         };
         const dayToUpdate = await Day.findByPk(req.params.dayId);
         if(!dayToUpdate) throw new Error(notFoundMessage);
-        await dayToUpdate.update(data);
-        res.sendStatus(200);
+        const updatedDay = await dayToUpdate.update(data);
+        res.send(updatedDay);
     }catch(error){
         next(error);
     };
