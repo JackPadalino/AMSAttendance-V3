@@ -71,4 +71,20 @@ router.get('/absences',async(req, res, next) => {
     };
 });
 
+// DELETE localhost:3000/api/attendance/absences
+router.delete('/absences/:dayId/:userId',async(req, res, next) => {
+    try {
+        const foundAbsence = await Absence.findOne({
+            where:{
+                dayId:req.params.dayId,
+                userId:req.params.userId
+            }
+        });
+        if(foundAbsence) await foundAbsence.destroy();
+        res.sendStatus(200);
+    }catch(error){
+        next(error);
+    };
+});
+
 module.exports = router;
