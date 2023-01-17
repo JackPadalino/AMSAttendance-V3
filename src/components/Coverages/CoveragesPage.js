@@ -34,8 +34,6 @@ const CoveragesPage = () => {
         dispatch(setAllAbsentUsers(userAbsences)); // setting the global list of absent users in Redux store
     };
 
-    console.log(allAbsentUsers.length);
-
     if(!token) return <NotFoundPage/>
     return (
         <div>
